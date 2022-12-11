@@ -20,7 +20,7 @@ const readAuthor = (req: Request, res: Response, next: NextFunction) => {
     const authorId = req.params.authorId;
 
     return Author.findById(authorId)
-        .then((author) => (author ? res.status(200).json({ author }) : res.status(404).json({ message: 'Not found' })))
+        .then((author) => (author ? res.status(200).json({ author }) : res.status(404).json({ message: 'not found' })))
         .catch((error) => res.status(500).json({ error }));
 };
 
@@ -43,7 +43,7 @@ const updateAuthor = (req: Request, res: Response, next: NextFunction) => {
                     .then((author) => res.status(201).json({ author }))
                     .catch((error) => res.status(500).json({ error }));
             } else {
-                res.status(404).json({ message: 'Not found' });
+                return res.status(404).json({ message: 'not found' });
             }
         })
         .catch((error) => res.status(500).json({ error }));
@@ -53,7 +53,7 @@ const deleteAuthor = (req: Request, res: Response, next: NextFunction) => {
     const authorId = req.params.authorId;
 
     return Author.findByIdAndDelete(authorId)
-        .then((author) => (author ? res.status(201).json({ message: 'deleted' }) : res.status(404).json({ message: 'Not found' })))
+        .then((author) => (author ? res.status(201).json({ author, message: 'Deleted' }) : res.status(404).json({ message: 'not found' })))
         .catch((error) => res.status(500).json({ error }));
 };
 
